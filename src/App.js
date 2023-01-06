@@ -37,8 +37,8 @@ function App() {
         <Routes>
           <Route  path="/" element={<Body color={state} change={Add}/>}/>
           <Route path="/Detail/:id" element={<Detail  color={state} />}/>
-          <Route path='/cart' element={<Cart/>}/>
-          <Route path='/Categories/:cs' element={<Category color={state}/>}/>
+          <Route path='/cart' element={<Cart color={state}/>}/>
+          <Route path='/categories/:cs' element={<Category color={state}/>}/>
         </Routes>
         {/* <Footer/> */}
       </Router>

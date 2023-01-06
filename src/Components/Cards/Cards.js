@@ -3,19 +3,27 @@ import './Cards.css'
 
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import Loading from '../Loading/Loading'
 
 
 const Cards = ({theme}) => {
 
   const [products, setProducts] = useState([])
+  const [load, setLoad] =useState(false)
 
   
 
   async function getProducts(){
     try{
+      setLoad(true)
       const res = await axios.get ('https://fakestoreapi.com/products')
     console.log(res.data);
     setProducts(res.data)
+    
+    setLoad(false)
+    
+
+
   }catch(error){
      if (error.response){
       console.log(error.response.data);
@@ -39,9 +47,10 @@ const Cards = ({theme}) => {
     <div className='cards'>
     <div className='card-wrap'>
       {
+load? <Loading /> :
       products?.map((i)=>(
         <Link key={i.id}
-         className='shadow' to={`/Detail/${i.id}`} style={{backgroundColor: theme? "green":null}}>
+         className='shadow' to={`/Detail/${i.id}`} style={{backgroundColor: theme? "white":null}}>
       <div className='image-card'>
           <img src={i.image} className='wed' alt="" /> 
       </div>

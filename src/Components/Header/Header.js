@@ -4,31 +4,30 @@ import "./Header.css";
 // import { FiAlignJustify } from 'react-icons/fi'
 // import { RiContactsBook2Fill } from 'react-icons/ri'
 // import { AiOutlineShopping } from 'react-icons/ai'
-import { MdOutlineLightMode } from "react-icons/md";
-import { MdOutlineNightlight } from "react-icons/md";
+// import { MdOutlineLightMode } from "react-icons/md";
+// import { MdOutlineNightlight } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Logos from "./logos.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Theme from '../Theme';
-// import { FaTimes, } from 'react-icons/fa'
-// import { FiAlignJustify } from 'react-icons/fi'
+
 
 
 
 function Header({color, change}) {
 
-  // const Header = ({color, change}) => {
-  // const [toggle, settoggle] = useState(true)
-  // const handletoggle = () => { settoggle(!toggle) }
+let activeStyle = {
+  color:"red",
+  textDecoration: "underline"
+}
 
-  // const Night = (<MdOutlineNightlight onClick={handletoggle} />)
 
-  // const Dark = (<div>
-  //     <MdOutlineLightMode  onClick={handletoggle} />
-  //               </div>)
 
+
+
+  
   
 
   const navigate = useNavigate()
@@ -53,31 +52,37 @@ function Header({color, change}) {
   }, [])
 
   return (
-    <div className="Header" style={{backgroundColor: color?  "tomato": null}}>
+    <div className="Header" style={{backgroundColor: color?  "grey": null}}>
       <div className="Header_logo">
         <img src={Logos} alt="" onClick={() => navigate('/')} />
       </div>
 
       <div className="Header_Links">
-        <Link className="p1" to={"/"}>
-          {" "}
-          <p>HOME</p>{" "}
-        </Link>
+        <NavLink className="p1" to="/" style = {({isActive}) => isActive ? activeStyle : undefined
 
-        {/* <Link className="p2" to={"/Category"}> */}
-        {/* <p>CATEGORY</p></Link> */}
+        }>
+           <p>HOME</p> 
+            </NavLink>
 
-        <div className='p2'
+       
+
+        <NavLink className="p2" to="/categories"
+            style={({ isActive }) =>
+              isActive? activeStyle: undefined}>
+                <div
         onMouseEnter={()=>{setState(!state)}}  
-        onMouseLeave={()=>{setState(!state)}}
-        ><p>CATEGORY</p>
-          {state && <div className='invisible'> </div>}
+        onMouseLeave={()=>{setState(!state)}}>
+          <p>CATEGORY</p>
+          {state && <div className="invincible"> </div>}
         {state && dropdown}
         </div>
+         </NavLink>
 
-        <Link className="p3" to={"/Cart"}>
+        <NavLink  to={"Cart/"} className="p2"
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined}>
           <p>CART</p>{" "}
-        </Link>
+        </NavLink>
       </div>
 
       <div className="Header_Toggle">

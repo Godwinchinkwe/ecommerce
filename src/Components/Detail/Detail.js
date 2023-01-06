@@ -23,8 +23,8 @@ const Detail = ({color}) => {
     }, )
 
   return (
-    <div className="detail-holder" style={{backgroundColor:color? "blue" :null}}> 
-        <div className="detail-card"  style={{backgroundColor:color? "tomato" :null}}>
+    <div className="detail-holder" style={{backgroundColor:color? "black" :null}}> 
+        <div className="detail-card"  style={{backgroundColor:color? "white" :null}}>
             <div className="detail-image">
                 <div  className="image-div">
                     <img className="detail-img" src={item.image} alt=""/>

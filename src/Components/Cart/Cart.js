@@ -4,11 +4,11 @@ import { BsCart3 } from "react-icons/bs";
 
 import React from 'react'
 
-function Cart() {
+function Cart({color}) {
   return (
 
-    <div className='Cart_Main'>
-    <div className='Cart_wrap'>
+    <div className='Cart_Main'  style={{backgroundColor:color? "black" :null}}>
+    <div className='Cart_wrap'  style={{backgroundColor:color? "white" :null}}>
         <div className='cart'>
             <BsCart3 style={{ fontSize: 100,color:'black'}} />
         </div>
