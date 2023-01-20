@@ -1,24 +1,59 @@
-import './Cart.css'
-// import { useEffect, useState } from 'react'
-import { BsCart3 } from "react-icons/bs";
+import React, {useContext} from 'react'
+import "./Cart.css";
+import CartItems from './Cartitems'
+import { useSelector, useDispatch } from 'react-redux';
+import {clearCart} from "../../Features/Features";
+import {ThemeContext} from "../API/Context"
 
-import React from 'react'
 
-function Cart({color}) {
+const Cart = () => {
+  const {totalAmount}=useContext(ThemeContext)
+  const cart = useSelector((state) => state.commerce.cart);
+  
+  const dispatch = useDispatch()
+
+  // const payment =()=> {
+  //   const refVal = "my-ref"+ Math.random() *1000;
+  //   window.Korapay.initialize
+  // }
+
+
   return (
-
-    <div className='Cart_Main'  style={{backgroundColor:color? "black" :null}}>
-    <div className='Cart_wrap'  style={{backgroundColor:color? "white" :null}}>
-        <div className='cart'>
-            <BsCart3 style={{ fontSize: 100,color:'black'}} />
-        </div>
-        <h1>Your cart is empty!</h1>
-        <p>Browse our categories and discover our best deals!</p>
-        <button>START SHOPPING</button>
+    <div className="Cart-Holder">
+      <div className="Cart-Box">
+      <div className="Cart-Title">
+        <h4>Shopping Cart</h4>
+        <h3>Total:${totalAmount}</h3>
+        <p onClick={()=> {dispatch(clearCart())}}>Remove all</p>
+      </div>
+      <div className="Cart-Items">
+      {
+        cart?.map((props)=>(
+          <CartItems key={props.id} image={props.image} title={props.title} price={props.price} item={props} QTY={props.QTY} />
+        ))
+      } 
+      </div>
+      <div className="Cart-Check">
+      <button onClick={
+            function payKorapay() {
+              window.Korapay.initialize({
+                  key: "pk_test_hvmxqvX6y7hefdRtdc6ncX316GUbD37FLfazLUvC",
+                  reference: "your-unique",
+                  amount: 22000, 
+                  currency: "NGN",
+                  customer: {
+                    name: "John Doe",
+                    email: "john@doe.com"
+                  },
+                  notification_url: "https://example.com/webhook"
+              });
+          }
+      }> Check Out </button>
+      
+      </div>
+      </div>
     </div>
-</div>
   )
 }
-
 
 export default Cart

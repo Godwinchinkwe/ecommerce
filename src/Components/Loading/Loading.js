@@ -4,11 +4,12 @@ import giffy from "./giffy.gif"
 
 function Loading() {
   return (
-    <div>
+    <div className="loading_page">
        
         <img src ={giffy} alt=""/>
         
-        <h1>Loading please wait...</h1>
+        <h1>Loading . . . </h1>
+        <p>Please wait . . .</p>
     </div>
   )
 }

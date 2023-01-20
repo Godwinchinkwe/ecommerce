@@ -9,17 +9,21 @@ const Category = ({color}) => {
   const { cs } = useParams()
   const [catigory, setCategory] = useState()
   
-const [load, setLoad] =useState(false)
+const [load, setLoad] = useState(false)
 
   async function getCategories() {
+    setLoad(true)
     const res = await axios.get(`https://fakestoreapi.com/products/category/${cs}`)
+    
     setLoad(false)
+    
     setCategory(res.data)
   }
 
   useEffect(() => {
     getCategories()
   },[cs] )
+  
 
   return (
     <div className='Category-Holder'>

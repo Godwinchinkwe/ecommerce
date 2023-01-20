@@ -2,14 +2,20 @@ import React, {useEffect, useState} from 'react'
 import "./Detail.css";
 import axios from "axios";
 import {useParams} from "react-router-dom"
+import { useDispatch } from 'react-redux';
+import { addToCart, total } from "../../Features/Features";
+import Swal from 'sweetalert2'
 
+
+ 
 const Detail = ({color}) => {
+    const dispatch = useDispatch()
     const {id} = useParams()
     const [item, setItem] = useState([]);
 
     const getItem= async()=>{
         try{
-            const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
+            const res = await axios.get(`https://fakestoreapi.com/products/${id}`); 
             console.log(res.data)
             setItem(res.data)
         }catch(err){
@@ -37,7 +43,16 @@ const Detail = ({color}) => {
                 <p className="detail-desc"><span>Description:</span> {item.description}</p>
                 <p className="detail-cat">Category: {item.category}</p>
               
-                <div className="detail-button">Add to Cart</div>
+                <div className="detail-button" onClick={()=>{dispatch(addToCart(item)); dispatch(total());
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'item has been added',
+                    showConfirmButton: false,
+                    timer: 1500,
+                  })
+                }}>
+                    Add to Cart</div>
             </div>
         </div>
     </div>

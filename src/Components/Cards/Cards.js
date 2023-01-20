@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './Cards.css'
+import { useDispatch } from 'react-redux'
+import { bringProducts } from '../../Features/Features'
 
 import axios from 'axios'
 import { Link } from 'react-router-dom'
@@ -7,6 +9,7 @@ import Loading from '../Loading/Loading'
 
 
 const Cards = ({theme}) => {
+  const dispatch = useDispatch()
 
   const [products, setProducts] = useState([])
   const [load, setLoad] =useState(false)
@@ -19,11 +22,10 @@ const Cards = ({theme}) => {
       const res = await axios.get ('https://fakestoreapi.com/products')
     console.log(res.data);
     setProducts(res.data)
+    dispatch(bringProducts(res.data))
     
     setLoad(false)
     
-
-
   }catch(error){
      if (error.response){
       console.log(error.response.data);
